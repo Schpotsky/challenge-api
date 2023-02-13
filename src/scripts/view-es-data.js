@@ -10,8 +10,7 @@ const esClient = helper.getESClient()
 
 async function showESData () {
   const result = await esClient.search({
-    index: config.get('ES.ES_INDEX'),
-    type: config.get('ES.ES_TYPE')
+    index: config.get('ES.ES_INDEX')
   })
   return result
 }

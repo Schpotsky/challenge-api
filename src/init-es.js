@@ -22,64 +22,66 @@ const initES = async () => {
     }
   }
 
-  const exists = await client.indices.exists({ index: config.ES.ES_INDEX })
+  const { body: exists } = await client.indices.exists({ index: config.ES.ES_INDEX })
   if (exists) {
     logger.info(`The index ${config.ES.ES_INDEX} exists.`)
   } else {
     logger.info(`The index ${config.ES.ES_INDEX} will be created.`)
 
-    const body = { mappings: {} }
-    body.mappings[config.get('ES.ES_TYPE')] = {
+    const body = { mappings: {
       properties: {
-        id: { type: 'keyword' },
-        name: {
-          type: 'keyword',
-          fields: {
-            text: {
-              type: 'text'
-            }
+        properties: {
+          id: { type: 'keyword' },
+          name: {
+            type: 'keyword',
+            fields: {
+              text: {
+                type: 'text'
+              }
+            },
+            normalizer: 'custom_sort_normalizer'
           },
-          normalizer: 'custom_sort_normalizer'
-        },
-        status: {
-          type: 'keyword',
-          fields: {
-            text: {
-              type: 'text'
-            }
+          status: {
+            type: 'keyword',
+            fields: {
+              text: {
+                type: 'text'
+              }
+            },
+            normalizer: 'custom_sort_normalizer'
           },
-          normalizer: 'custom_sort_normalizer'
-        },
-        type: {
-          type: 'keyword',
-          fields: {
-            text: {
-              type: 'text'
-            }
+          type: {
+            type: 'keyword',
+            fields: {
+              text: {
+                type: 'text'
+              }
+            },
+            normalizer: 'custom_sort_normalizer'
           },
-          normalizer: 'custom_sort_normalizer'
-        },
-        prizeSets: {
-          properties: {
-            type: { type: 'text' },
-            prizes: {
-              properties: {
-                type: { type: 'text' },
-                value: { type: 'float' }
+          prizeSets: {
+            properties: {
+              type: { type: 'text' },
+              prizes: {
+                properties: {
+                  type: { type: 'text' },
+                  value: { type: 'float' }
+                }
               }
             }
           }
-        }
-      },
-      dynamic_templates: [{
-        metadata: {
-          path_match: 'metadata.*',
-          mapping: {
-            type: 'text'
+        },
+        dynamic_templates: [{
+          metadata: {
+            path_match: 'metadata.*',
+            mapping: {
+              type: 'text'
+            }
           }
-        }
-      }]
-    }
+        }]
+      }
+    } }
+
     body.settings = {
       analysis: {
         normalizer: {
