@@ -29,7 +29,7 @@ const initES = async () => {
     logger.info(`The index ${config.ES.ES_INDEX} will be created.`)
 
     const body = { mappings: {
-      properties: {
+     // properties: {
         properties: {
           id: { type: 'keyword' },
           name: {
@@ -79,7 +79,7 @@ const initES = async () => {
             }
           }
         }]
-      }
+      //}
     } }
 
     body.settings = {
