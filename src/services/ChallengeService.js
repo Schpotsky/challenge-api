@@ -2109,8 +2109,8 @@ function sanitizeChallenge(challenge) {
   
   //Only sanitize the description if it's in html format
   if (!_.isUndefined(sanitized.description) && 
-      !_.isUndefined(sanitized.descriptionFormat) && 
-      sanitized.descriptionFormat=="html") {
+      !_.isUndefined(challenge.descriptionFormat) && 
+      challenge.descriptionFormat=="html") {
     sanitized.description = xss(sanitized.description);
   }
    
