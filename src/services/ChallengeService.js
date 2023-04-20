@@ -2108,11 +2108,11 @@ function sanitizeChallenge(challenge) {
   }
   
   //Only sanitize the description if it's in html format
-  if (!_.isUndefined(sanitized.description) && 
+  /*if (!_.isUndefined(sanitized.description) && 
       !_.isUndefined(challenge.descriptionFormat) && 
-      challenge.descriptionFormat=="html") {
+      challenge.descriptionFormat==="html") {
     sanitized.description = xss(sanitized.description);
-  }
+  }*/
    
   if (challenge.legacy) {
     sanitized.legacy = _.pick(challenge.legacy, [
