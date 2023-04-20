@@ -84,6 +84,7 @@ workflows:
             only:
             - dev
             - fix/floating-point-arhithmetic
+            - fix/markdown_sanitization
 
     - "build-qa":
         context: org-global
